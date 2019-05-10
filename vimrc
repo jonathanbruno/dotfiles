@@ -12,9 +12,10 @@ set dir=/tmp
 let g:NERDTreeMapActivateNode = '<Right>'
 let g:NERDTreeMapCloseDir = '<Left>'
 " let g:nerdtree_tabs_open_on_console_startup=1
+let NERDTreeShowHidden=1
 
-" nmap <C-b> :NERDTreeTabsToggle<CR>
-nmap <C-P> :Files<CR>
+nmap <C-b> :NERDTreeTabsToggle<CR>
+nmap <C-P> :GFiles<CR>
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
