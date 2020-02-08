@@ -1,5 +1,5 @@
 set nocompatible              " be iMproved, required
-set number
+:set number relativenumber
 set swapfile
 set dir=/tmp
 set colorcolumn=80
@@ -18,6 +18,10 @@ set smartcase
 set splitbelow
 set splitright
 
+" show vertical lines for block
+"set cursorcolumn
+"set cursorline
+
 set rtp+=~/.fzf
 let $FZF_DEFAULT_OPTS='--layout=reverse --inline-info'
 let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore-dir html -g ""'
@@ -27,18 +31,6 @@ let g:limelight_conceal_ctermfg = 'gray'
 "-----------------------------------------------------------------------------
 "-----MAPPINGS----------------------------------------------------------------
 "-----------------------------------------------------------------------------
-
-" Ctrl+z undo, Ctrl+y redo
-imap <C-Z> <C-O>u
-imap <C-Y> <C-O><C-R>
-
-" saving with  Ctrl+s
-"normal mode: save
-nmap <c-s> :w<CR>
-" insert mode: escape to normal and save
-imap <c-s> <Esc>:w<CR>a
-" visual mode: escape to normal and save
-vmap <c-s> <Esc>:w<CR>v
 
 " Resizing buffer
 nmap <silent> <C-S-Left> :vertical resize +1<CR>
@@ -52,10 +44,9 @@ map <leader>r :NERDTreeFind<cr>
 nmap <silent> <F3> :NERDTreeToggle<CR>
 nmap <silent> <F2> :NERDTreeFind<CR>
 
-
 " RSPEC commands
-map <S-n> :call RunCurrentSpecFile()<CR>
-map <S-m> :call RunNearestSpec()<CR>
+map <Leader>n :call RunCurrentSpecFile()<CR>
+map <Leader>m :call RunNearestSpec()<CR>
 
 " Indentation
 vmap <Tab> >gv
@@ -73,6 +64,7 @@ imap <C-G> <Esc>:Rg<CR>
 nmap <C-P> :CFiles<CR>
 command! -bang -nargs=? -complete=dir CFiles
    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', 'ctrl-p'), <bang>0)
+
 "------------------------------------------------------------------------------
 
 syntax on
@@ -81,7 +73,7 @@ filetype indent on
 syntax enable
 " set background=dark
 
-silent! colorscheme codedark
+silent! colorscheme ron
 autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
 autocmd FileType eruby setlocal expandtab shiftwidth=2 tabstop=2
 
@@ -98,6 +90,11 @@ let g:NERDTreeWinSize = 30
 let g:NERDTreeMapActivateNode = '<Right>'
 let g:NERDTreeMapCloseDir = '<Left>'
 
+let g:ale_fixers = {
+      \    'ruby': ['standardrb'],
+      \}
+let g:ale_fix_on_save = 1
+
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -105,8 +102,7 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd BufWinEnter * NERDTreeFind
 " pressing this inside any open file in vim will jump to the nerdtree and highlight 
 " where that file is -> very useful when you have multiple files open at once
-" map ] :NERDTreeFind<CR>
-let NERDTreeShowHidden=1
+"let NERDTreeShowHidden=1
 
 let g:snipMate = {}
 let g:snipMate.scope_aliases = {}
@@ -150,11 +146,16 @@ Plugin 'Shougo/neocomplete.vim'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'terryma/vim-multiple-cursors'
 
-" Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-commentary'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 
 Plugin 'junegunn/limelight.vim'
+
+Plugin 'dense-analysis/ale'
+Plugin 'tpope/vim-repeat'
+
+Plugin 'chase/vim-ansible-yaml'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
