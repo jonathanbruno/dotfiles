@@ -8,6 +8,12 @@ set list          " Display unprintable characters f12 - switches
 set listchars=tab:•\ ,trail:•,extends:»,precedes:« " Unprintable chars mapping
 set syntax=whitespace
 
+" Color Scheme
+syntax enable
+set background=dark
+colorscheme ron
+let g:solarized_termcolors=256
+
 "" Searching
 set hlsearch
 set incsearch
@@ -70,14 +76,10 @@ command! -bang -nargs=? -complete=dir CFiles
 syntax on
 filetype indent on
 
-syntax enable
-" set background=dark
-
-silent! colorscheme ron
 autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
 autocmd FileType eruby setlocal expandtab shiftwidth=2 tabstop=2
 
-let g:airline_theme = 'codedark'
+let g:airline_theme = 'solarized'
 
 "" NERDTree configuration
 let g:NERDTreeChDirMode=2
@@ -98,6 +100,7 @@ let g:ale_fix_on_save = 1
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd BufWritePost *.rb !ripper-tags -R --exclude=vendor
 
 autocmd BufWinEnter * NERDTreeFind
 " pressing this inside any open file in vim will jump to the nerdtree and highlight 
@@ -118,9 +121,9 @@ call vundle#begin()
 " THEMES
 " Plugin 'tomasr/molokai'
 " Plugin 'dracula/vim', { 'name': 'dracula' }
-" Plugin 'altercation/vim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 " Plugin 'sickill/vim-monokai'
-Plugin 'tomasiser/vim-code-dark'
+" Plugin 'tomasiser/vim-code-dark'
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
@@ -156,6 +159,15 @@ Plugin 'dense-analysis/ale'
 Plugin 'tpope/vim-repeat'
 
 Plugin 'chase/vim-ansible-yaml'
+
+
+Plugin 'nikvdp/ejs-syntax'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'tpope/vim-jdaddy' "Json text objects
+
+Plugin 'rhysd/conflict-marker.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
