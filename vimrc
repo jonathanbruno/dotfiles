@@ -1,17 +1,16 @@
 set nocompatible              " be iMproved, required
-:set number relativenumber
+set number relativenumber
 set swapfile
 set dir=/tmp
 set colorcolumn=80
 set autoread
-set list          " Display unprintable characters f12 - switches
-set listchars=tab:•\ ,trail:•,extends:»,precedes:« " Unprintable chars mapping
+"set list          " Display unprintable characters f12 - switches
+"set listchars=tab:•\ ,trail:•,extends:»,precedes:« " Unprintable chars mapping
 set syntax=whitespace
 
 " Color Scheme
-syntax enable
 set background=dark
-colorscheme ron
+colorscheme solarized
 let g:solarized_termcolors=256
 
 "" Searching
@@ -43,9 +42,8 @@ nmap <silent> <C-S-Left> :vertical resize +1<CR>
 nmap <silent> <C-S-Right> :vertical resize -1<CR>
 
 " NerdTree Mappings
-map <C-b> :NERDTreeTabsToggle<CR>
 " this is the key to jump to the nerdtree window from any other window
-map <leader>r :NERDTreeFind<cr>
+" map <leader>r :NERDTreeFind<cr>
 " open/close nerdtree window
 nmap <silent> <F3> :NERDTreeToggle<CR>
 nmap <silent> <F2> :NERDTreeFind<CR>
@@ -74,11 +72,12 @@ command! -bang -nargs=? -complete=dir CFiles
 "------------------------------------------------------------------------------
 
 syntax on
-filetype indent on
 
+autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2
 autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
 autocmd FileType eruby setlocal expandtab shiftwidth=2 tabstop=2
-
+autocmd FileType elixir setlocal expandtab shiftwidth=2 tabstop=2
+let g:ruby_indent_access_modifier_style = 'outdent'
 let g:airline_theme = 'solarized'
 
 "" NERDTree configuration
@@ -100,7 +99,7 @@ let g:ale_fix_on_save = 1
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd BufWritePost *.rb !ripper-tags -R --exclude=vendor
+autocmd BufWritePost *.rb silent! !ripper-tags -R --exclude=vendor
 
 autocmd BufWinEnter * NERDTreeFind
 " pressing this inside any open file in vim will jump to the nerdtree and highlight 
@@ -113,61 +112,44 @@ let g:snipMate.scope_aliases['ruby'] = 'ruby,ruby-rails'
 
 hi CursorLine cterm=NONE ctermbg=darkgray ctermfg=white guibg=darkred guifg=white
 
-set guifont=Roboto\ Mono:h12
-
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " THEMES
-" Plugin 'tomasr/molokai'
-" Plugin 'dracula/vim', { 'name': 'dracula' }
 Plugin 'altercation/vim-colors-solarized'
-" Plugin 'sickill/vim-monokai'
-" Plugin 'tomasiser/vim-code-dark'
-
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'jiangmiao/auto-pairs'
 Plugin  'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-rails.git'
-
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
-
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ervandew/supertab'
-
 " Files structure tree
 Plugin 'scrooloose/nerdtree'
-
 " neocomplete Plugin
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'terryma/vim-multiple-cursors'
-
 Plugin 'tpope/vim-commentary'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
-
 Plugin 'junegunn/limelight.vim'
-
 Plugin 'dense-analysis/ale'
 Plugin 'tpope/vim-repeat'
-
 Plugin 'chase/vim-ansible-yaml'
-
-
 Plugin 'nikvdp/ejs-syntax'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'tpope/vim-jdaddy' "Json text objects
-
 Plugin 'rhysd/conflict-marker.vim'
+Plugin 'elzr/vim-json'
 
 call vundle#end()            " required
-filetype plugin indent on    " required
+filetype plugin indent on
