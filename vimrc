@@ -4,8 +4,8 @@ set swapfile
 set dir=/tmp
 set colorcolumn=80
 set autoread
-"set list          " Display unprintable characters f12 - switches
-"set listchars=tab:•\ ,trail:•,extends:»,precedes:« " Unprintable chars mapping
+set list          " Display unprintable characters f12 - switches
+set listchars=tab:•\ ,trail:•,extends:»,precedes:« " Unprintable chars mapping
 set syntax=whitespace
 
 " Color Scheme
@@ -22,6 +22,8 @@ set smartcase
 " More natural split open
 set splitbelow
 set splitright
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
 
 " show vertical lines for block
 "set cursorcolumn
