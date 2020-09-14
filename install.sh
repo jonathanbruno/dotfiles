@@ -23,6 +23,9 @@ if [ -d "$FZF_DIR" ]; then
     sudo rm -r $FZF_DIR
 fi
 
+echo -e '\e[92m Installing vundle\e[39m'
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 echo -e '\e[92m Installing fzf\e[39m'
 ~/.fzf/install --all
