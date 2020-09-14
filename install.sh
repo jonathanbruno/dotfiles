@@ -1,3 +1,7 @@
+sudo apt-get install ctags
+sudo apt-get install silversearcher-ag
+ sudo apt-get install ripgrep
+
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 echo $SCRIPTPATH
